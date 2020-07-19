@@ -14,6 +14,7 @@ public class Telefono {
     private String numero;
     private String tipo;
     private String operadora;
+    private Usuario usuario;
     
     public Telefono(){
     }
@@ -56,6 +57,16 @@ public class Telefono {
     public void setOperadora(String operadora) {
         this.operadora = operadora;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 /**
  *Devuelve un numero entero que "identifica" al objeto cuando se guarda en una estructura 
  * de datos conocida como HashMap cuyo objetivo es almacenar un conjunto de valores
