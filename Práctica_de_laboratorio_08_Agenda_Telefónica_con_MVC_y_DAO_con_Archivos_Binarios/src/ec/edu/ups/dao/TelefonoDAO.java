@@ -88,7 +88,31 @@ public class TelefonoDAO implements ITelefonoDAO{
 
     @Override
     public void delete(Telefono telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try {
+            int salto = 0;
+
+            while (salto < archivo.length()) {
+                archivo.seek(salto);
+                int codigoArchivo = archivo.readInt();
+
+                if (telefono.getCodigo() == codigoArchivo) {
+                    archivo.seek((long)(salto - 4));
+                    archivo.writeUTF("");
+                    archivo.writeUTF("");
+                    archivo.writeUTF("");
+                    archivo.writeUTF("");
+                    break;
+
+                }
+                salto += 97;
+
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error de lectura (delete: TelefonoDAO)");
+            e.printStackTrace();
+
+        }
     }
 
     @Override
