@@ -26,6 +26,10 @@ public class Telefono {
         this.operadora = operadora;
     }
 
+    public Telefono(int codigo, String readUTF, String readUTF0, String readUTF1, boolean b) {
+
+    }
+
     public int getCodigo() {
         return codigo;
     }

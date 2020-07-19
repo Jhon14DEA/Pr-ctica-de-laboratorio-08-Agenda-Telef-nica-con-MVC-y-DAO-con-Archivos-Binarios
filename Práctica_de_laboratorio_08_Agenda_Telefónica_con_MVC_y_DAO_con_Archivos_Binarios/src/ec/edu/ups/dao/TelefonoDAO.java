@@ -56,7 +56,29 @@ public class TelefonoDAO implements ITelefonoDAO{
 
     @Override
     public Telefono read(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            int salto = 0;
+
+            while (salto < archivo.length()) {
+                archivo.seek(salto);
+                int codigoArchivo = archivo.readInt();
+
+                if (codigoArchivo == codigo) {
+                    Telefono telefono = new Telefono(codigo, archivo.readUTF(), archivo.readUTF(), archivo.readUTF(), false);
+                    telefono.setUsuario(usuarioDAO.read(archivo.readUTF()));
+                    return telefono;
+                } else {
+                }
+                salto += 97;
+
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error de lectura (read: TelefonoDAO)");
+            e.printStackTrace();
+
+        }
+        return null;
     }
 
     @Override
