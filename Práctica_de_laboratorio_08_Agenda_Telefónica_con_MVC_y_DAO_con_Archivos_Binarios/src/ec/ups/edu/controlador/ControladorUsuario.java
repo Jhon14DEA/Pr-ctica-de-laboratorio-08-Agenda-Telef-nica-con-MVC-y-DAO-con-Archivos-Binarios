@@ -33,14 +33,9 @@ public class ControladorUsuario {
     private ITelefonoDAO telefonoDAO;
 
     public ControladorUsuario(UsuarioDAO clienteDAO, TelefonoDAO direccionDAO) {
-        //   this.vista = vistaCliente;
         this.usuarioDAO = clienteDAO;
-
-        // this.vistaT = vistaDireccion;
         this.telefonoDAO = direccionDAO;
-
         contadorTelefono = 0;
-
     }
 
     public void crearUsuario(String nombre, String apellido, String cedula, String correo,
