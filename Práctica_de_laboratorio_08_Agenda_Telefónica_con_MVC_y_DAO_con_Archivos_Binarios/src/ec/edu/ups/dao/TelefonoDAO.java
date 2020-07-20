@@ -5,124 +5,226 @@
  */
 package ec.edu.ups.dao;
 
-import ec.edu.ups.idao.ITelefonoDAO;
-import ec.edu.ups.idao.IUsuarioDAO;
-import ec.edu.ups.modelo.Telefono;
+import ec.ups.edu.idao.ITelefonoDAO;
+import ec.ups.edu.modelo.Telefono;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.HashMap;
+import java.util.*;
 import java.util.Map;
 
 /**
  *
  * @author JHON FAREZ
  */
-public class TelefonoDAO implements ITelefonoDAO{
+public class TelefonoDAO implements ITelefonoDAO {
 
-    
-    private RandomAccessFile archivo;
+    /**
+     * private int codigo (4 bytes) private String numero; (20 bytes) + 2extras
+     * private String tipo; (25 bytes) + 2extras private String operadora; (25
+     * bytes) + 2extras private Usuario usuario; (cedula ID) 10 bytes + 2 extras
+     * total === 92 bytes
+     */
     private int codigo;
-    private IUsuarioDAO usuarioDAO;
-    
-    public TelefonoDAO(IUsuarioDAO usuarioDAO) {
+    private int tamañoRegistro;
+    private RandomAccessFile archivo;
 
+    public TelefonoDAO() {
+        codigo = 0;
+        tamañoRegistro = 92;
         try {
-            archivo = new RandomAccessFile("Datos/Telefonos.dat", "rw");
-            codigo = (int) (archivo.length()/97);
-            this.usuarioDAO = usuarioDAO;
-
-        } catch (IOException e) {
-            System.out.println("Error de lectura y escritura");
-            e.printStackTrace();
+            //archivo = new RandomAccessFile("C:\\Users\\Adolfo\\Desktop\\POO\\InterfazGraficaconArchivosBinarios\\datos\\telefono.dat", "rw");
+            archivo = new RandomAccessFile("datos/telefono.dat", "rw");
+        } catch (IOException ex) {
+            System.out.println("error de escritura y lectura(teelfonoDAO)");
+            ex.printStackTrace();
         }
     }
+
+    //mandar un telefono a la base datos
     @Override
     public void create(Telefono telefono) {
-       telefono.setCodigo(++codigo);
+        // telefono.setCodigo(++codigo);
+
         try {
+            codigo++;
             archivo.seek(archivo.length());
             archivo.writeInt(telefono.getCodigo());
             archivo.writeUTF(telefono.getNumero());
-            archivo.writeUTF(telefono.getTipo());
             archivo.writeUTF(telefono.getOperadora());
+            archivo.writeUTF(telefono.getTipo());
             archivo.writeUTF(telefono.getUsuario().getCedula());
-
-        } catch (IOException e) {
-            System.out.println("Error de  lectura y escritura(create:UsuarioDao)");
-            e.printStackTrace();
-
+        } catch (IOException ex) {
+            System.out.println("Error (create Telefono)");
         }
 
     }
 
+    //para devolver un telefono de la base de datos
     @Override
     public Telefono read(int id) {
         try {
             int salto = 0;
-
             while (salto < archivo.length()) {
                 archivo.seek(salto);
                 int codigoArchivo = archivo.readInt();
-
-                if (codigoArchivo == codigo) {
-                    Telefono telefono = new Telefono(codigo, archivo.readUTF(), archivo.readUTF(), archivo.readUTF(), false);
-                    telefono.setUsuario(usuarioDAO.read(archivo.readUTF()));
-                    return telefono;
-                } else {
+                if (id == codigoArchivo) {
+                    Telefono tele = new Telefono(codigoArchivo, archivo.readUTF(), archivo.readUTF(),
+                            archivo.readUTF());
+                    return tele;
                 }
-                salto += 97;
-
+                salto += tamañoRegistro;
             }
 
-        } catch (IOException e) {
-            System.out.println("Error de lectura (read: TelefonoDAO)");
-            e.printStackTrace();
-
+        } catch (IOException ex) {
+            System.out.println("Error read telefono");
         }
         return null;
     }
 
+    //para actualizar un telefono
     @Override
     public void update(Telefono telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        int salto = 0;
+        int codigo = telefono.getCodigo();
+        try {
+            while (salto < archivo.length()) {
+                archivo.seek(salto);
+                int codigoArchivo = archivo.readInt();
+                if (codigo == codigoArchivo) {
+                    archivo.writeUTF(telefono.getNumero());
+                    archivo.writeUTF(telefono.getOperadora());
+                    archivo.writeUTF(telefono.getTipo());
+                    break;
+                }
+                salto += tamañoRegistro;
+            }
+        } catch (IOException ex) {
+            System.out.println("Error de lectura o escritura(upDate Telefono)");
+        }
+    }
+
+    //para eliminar un telefono
+    @Override
+    public void delete(int id) {
+
+        int salto = 0;
+
+        try {
+            while (salto < archivo.length()) {
+                archivo.seek(salto);
+                int codigoArchivo = archivo.readInt();
+                if (id == codigoArchivo) {
+                    archivo.seek(salto);
+                    archivo.writeInt(0);
+                    archivo.writeUTF(llenarEspacios(20));
+                    archivo.writeUTF(llenarEspacios(25));
+                    archivo.writeUTF(llenarEspacios(25));
+                    archivo.writeUTF(llenarEspacios(10));
+                    break;
+                }
+                salto += tamañoRegistro;
+            }
+        } catch (IOException ex) {
+            System.out.println("Error de lectura o escritura(upDate Telefono)");
+        }
+
     }
 
     @Override
-    public void delete(Telefono telefono) {
-         try {
+    public String llenarEspacios(int espacios) {
+        String formato = "";
+        return String.format("%-" + espacios + "s", formato);
+    }
+
+    //para devolver un mapa de telefonos
+    @Override
+    public List<Telefono> findAll() {
+        List<Telefono> listaTelefonos = new ArrayList<>();
+        try {
             int salto = 0;
 
             while (salto < archivo.length()) {
                 archivo.seek(salto);
-                int codigoArchivo = archivo.readInt();
 
-                if (telefono.getCodigo() == codigoArchivo) {
-                    archivo.seek((long)(salto - 4));
-                    archivo.writeUTF("");
-                    archivo.writeUTF("");
-                    archivo.writeUTF("");
-                    archivo.writeUTF("");
-                    break;
-
+                int valor = archivo.readInt();
+                if (valor > 0) {
+                    Telefono tele = new Telefono(valor, archivo.readUTF().trim(),
+                            archivo.readUTF().trim(), archivo.readUTF().trim());
+                    listaTelefonos.add(tele);
                 }
-                salto += 97;
 
+                salto += tamañoRegistro;
             }
-
-        } catch (IOException e) {
-            System.out.println("Error de lectura (delete: TelefonoDAO)");
-            e.printStackTrace();
-
+            return listaTelefonos;
+        } catch (IOException ex) {
+            System.out.println("error find all telefono");
         }
+        return listaTelefonos;
     }
 
     @Override
-    public Map<Integer, Telefono> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Telefono> telefonosUsuario(String id) {
+        List<Telefono> teles = new ArrayList<>();
+
+        try {
+            int salto = 80;
+            while (salto < archivo.length()) {
+                archivo.seek(salto);
+                String aux = archivo.readUTF().trim();
+                System.out.println(aux);
+                if (aux.equals(id.trim())) {
+                    //System.out.println("hola");
+
+                    archivo.seek(salto - 80);
+                    int valor = archivo.readInt();
+                    if (valor > 0) {
+                        Telefono tele = new Telefono(valor, archivo.readUTF().trim(),
+                                archivo.readUTF().trim(), archivo.readUTF().trim());
+                        teles.add(tele);
+                    }
+
+                }
+                salto += tamañoRegistro;
+            }
+            return teles;
+        } catch (IOException ex) {
+            System.out.println("Error telefonos usuario");
+        }
+
+        return teles;
     }
 
     @Override
     public int codigoTelefono() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+            if (archivo.length() > 0) {
+                //archivo.seek(archivo.length() - tamañoRegistro);
+                int aux = (int) (archivo.length() / tamañoRegistro);
+
+                /*if(archivo.readInt()==0)
+                {
+                    archivo.seek(archivo.length()-(tamañoRegistro*2));
+                    System.out.println(archivo.readInt()+"\n1");
+                    return archivo.readInt();
+                    
+                }else{
+                    System.out.println(archivo.readInt()+"\n2");
+                    return archivo.readInt();
+                }*/
+                System.out.println(aux);
+                return aux;
+
+            } else {
+                //System.out.println(archivo.readInt() + "\n3");
+                return 0;
+            }
+        } catch (IOException ex) {
+            System.out.println("Error codigo(codigoTelefono)");
+        }
+        //System.out.println(archivo.readInt()+"\n4");
+        return codigo;
     }
-    
 }
