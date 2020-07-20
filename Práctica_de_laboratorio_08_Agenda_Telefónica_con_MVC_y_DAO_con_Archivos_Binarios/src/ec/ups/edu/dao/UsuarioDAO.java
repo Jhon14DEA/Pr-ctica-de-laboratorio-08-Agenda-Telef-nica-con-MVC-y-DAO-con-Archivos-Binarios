@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.ups.dao;
+package ec.ups.edu.dao;
 
 import ec.ups.edu.idao.IUsuarioDAO;
 import ec.ups.edu.modelo.Usuario;
@@ -19,21 +19,9 @@ import java.util.Map;
 /**
  *
  * @author JHON FAREZ
- * 
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
-    //estructutra del archivo
-    /**
-     * private String cedula |10 caracteres| (validar cedula) private String
-     * nombre |25 caracteres| (llenar con espacio; cortar a 25 caracteres)
-     * private String apellido; |25 caracteres| (llenar con espacio; cortar a 25
-     * caracteres)( private String correo |50 caracteres| (llenar con espacio;
-     * cortar a 50 caracteres) private String contraseña; |8 caracteres|
-     * (validar contraseña) 118 bytes +10 extras 128 bytes
-     *
-     *
-     */
     private RandomAccessFile archivo;
     private Usuario usuario;
     private int registro;
@@ -41,7 +29,6 @@ public class UsuarioDAO implements IUsuarioDAO {
     public UsuarioDAO() {
         registro = 128;
         try {
-            //archivo = new RandomAccessFile("C:\\Users\\Adolfo\\Desktop\\POO\\InterfazGraficaconArchivosBinarios\\datos\\usuario.dat", "rw");
             archivo = new RandomAccessFile("datos/usuario.dat", "rw");
         } catch (IOException ex) {
             System.out.println("error de escritura y lectura");
@@ -49,7 +36,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
-    //mandar un usuario a la base de datos
     @Override
     public void create(Usuario cliente) {
         try {
@@ -65,7 +51,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
-    //para buscar un usuario
     @Override
     public Usuario read(String cedula) {
         int salto = 0;
@@ -117,7 +102,6 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
-//para actualizar un usuario ya creado
     @Override
     public void update(Usuario cliente) {
 
@@ -143,7 +127,6 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     }
 
-    //para eliminar un usuario
     @Override
     public void delete(Usuario cliente) {
         try {
@@ -182,8 +165,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
             byte[] correoArreglo = new byte[50];
             byte[] contraseñaArreglo = new byte[8];
-            /* FileReader aux = new FileReader("C:\\Users\\Adolfo\\Desktop\\POO\\InterfazGraficaconArchivosBinarios\\datos\\usuario.dat");
-            BufferedReader archivoLectura = new BufferedReader(aux);      */
+          
 
             while (salto < archivo.length()) {
                 archivo.seek(salto);

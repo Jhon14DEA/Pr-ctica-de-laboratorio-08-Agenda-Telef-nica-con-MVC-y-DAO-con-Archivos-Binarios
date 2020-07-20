@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.ups.dao;
+package ec.ups.edu.dao;
 
 import ec.ups.edu.idao.ITelefonoDAO;
 import ec.ups.edu.modelo.Telefono;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.HashMap;
 import java.util.*;
-import java.util.Map;
 
 /**
  *
@@ -19,12 +17,8 @@ import java.util.Map;
  */
 public class TelefonoDAO implements ITelefonoDAO {
 
-    /**
-     * private int codigo (4 bytes) private String numero; (20 bytes) + 2extras
-     * private String tipo; (25 bytes) + 2extras private String operadora; (25
-     * bytes) + 2extras private Usuario usuario; (cedula ID) 10 bytes + 2 extras
-     * total === 92 bytes
-     */
+    
+    
     private int codigo;
     private int tamañoRegistro;
     private RandomAccessFile archivo;
@@ -33,7 +27,6 @@ public class TelefonoDAO implements ITelefonoDAO {
         codigo = 0;
         tamañoRegistro = 92;
         try {
-            //archivo = new RandomAccessFile("C:\\Users\\Adolfo\\Desktop\\POO\\InterfazGraficaconArchivosBinarios\\datos\\telefono.dat", "rw");
             archivo = new RandomAccessFile("datos/telefono.dat", "rw");
         } catch (IOException ex) {
             System.out.println("error de escritura y lectura(teelfonoDAO)");
@@ -41,7 +34,6 @@ public class TelefonoDAO implements ITelefonoDAO {
         }
     }
 
-    //mandar un telefono a la base datos
     @Override
     public void create(Telefono telefono) {
         // telefono.setCodigo(++codigo);
@@ -60,7 +52,6 @@ public class TelefonoDAO implements ITelefonoDAO {
 
     }
 
-    //para devolver un telefono de la base de datos
     @Override
     public Telefono read(int id) {
         try {
@@ -82,7 +73,6 @@ public class TelefonoDAO implements ITelefonoDAO {
         return null;
     }
 
-    //para actualizar un telefono
     @Override
     public void update(Telefono telefono) {
 
@@ -105,7 +95,6 @@ public class TelefonoDAO implements ITelefonoDAO {
         }
     }
 
-    //para eliminar un telefono
     @Override
     public void delete(int id) {
 
@@ -201,30 +190,17 @@ public class TelefonoDAO implements ITelefonoDAO {
 
         try {
             if (archivo.length() > 0) {
-                //archivo.seek(archivo.length() - tamañoRegistro);
                 int aux = (int) (archivo.length() / tamañoRegistro);
 
-                /*if(archivo.readInt()==0)
-                {
-                    archivo.seek(archivo.length()-(tamañoRegistro*2));
-                    System.out.println(archivo.readInt()+"\n1");
-                    return archivo.readInt();
-                    
-                }else{
-                    System.out.println(archivo.readInt()+"\n2");
-                    return archivo.readInt();
-                }*/
                 System.out.println(aux);
                 return aux;
 
             } else {
-                //System.out.println(archivo.readInt() + "\n3");
                 return 0;
             }
         } catch (IOException ex) {
             System.out.println("Error codigo(codigoTelefono)");
         }
-        //System.out.println(archivo.readInt()+"\n4");
         return codigo;
     }
 }
