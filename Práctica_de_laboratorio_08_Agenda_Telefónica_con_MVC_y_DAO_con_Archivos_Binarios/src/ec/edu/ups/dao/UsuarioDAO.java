@@ -18,7 +18,8 @@ import java.util.Map;
 
 /**
  *
- * @author Adolfo
+ * @author JHON FAREZ
+ * 
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
