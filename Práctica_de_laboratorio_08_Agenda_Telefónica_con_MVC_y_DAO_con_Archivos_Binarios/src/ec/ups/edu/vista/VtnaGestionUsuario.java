@@ -85,7 +85,7 @@ public class VtnaGestionUsuario extends javax.swing.JInternalFrame {
         txtCedula.setEditable(false);
         txtCedula.setBackground(new java.awt.Color(255, 255, 204));
 
-        btnActualizar.setBackground(new java.awt.Color(102, 102, 255));
+        btnActualizar.setBackground(new java.awt.Color(51, 51, 51));
         btnActualizar.setText("Actualizar datos");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +93,7 @@ public class VtnaGestionUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAtras.setBackground(new java.awt.Color(255, 0, 0));
+        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +176,8 @@ public class VtnaGestionUsuario extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        jPanel1.getAccessibleContext().setAccessibleName("Datos ");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

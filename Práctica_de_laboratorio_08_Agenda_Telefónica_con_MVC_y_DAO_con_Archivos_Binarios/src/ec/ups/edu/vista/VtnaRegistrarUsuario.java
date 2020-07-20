@@ -35,7 +35,6 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        titulo = new javax.swing.JLabel();
         nombre = new javax.swing.JLabel();
         apellido = new javax.swing.JLabel();
         correo = new javax.swing.JLabel();
@@ -59,9 +58,6 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Registrar Usuario");
 
-        titulo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        titulo.setText("Registrar Usuario");
-
         nombre.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         nombre.setText("Nombre");
 
@@ -77,7 +73,7 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
         cedula.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         cedula.setText("Cédula");
 
-        btnCrearUsuario.setBackground(new java.awt.Color(153, 153, 255));
+        btnCrearUsuario.setBackground(new java.awt.Color(51, 51, 51));
         btnCrearUsuario.setText("Crear Usuario");
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +81,7 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAtras.setBackground(new java.awt.Color(255, 0, 0));
+        btnAtras.setBackground(new java.awt.Color(51, 51, 51));
         btnAtras.setText("Atrás");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,23 +124,16 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(btnCrearUsuario)
-                        .addGap(52, 52, 52)
-                        .addComponent(btnAtras))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(titulo)))
+                .addGap(78, 78, 78)
+                .addComponent(btnCrearUsuario)
+                .addGap(52, 52, 52)
+                .addComponent(btnAtras)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombre)
                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -241,7 +230,6 @@ public class VtnaRegistrarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel password;
-    private javax.swing.JLabel titulo;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;

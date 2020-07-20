@@ -148,7 +148,7 @@ public class VtnaGestionTelefono extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Operadora");
 
-        btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
+        btnAgregar.setBackground(new java.awt.Color(51, 51, 51));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public class VtnaGestionTelefono extends javax.swing.JInternalFrame {
 
         cbxOperadora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---Seleccione una opcion---" }));
 
-        btnEditar.setBackground(new java.awt.Color(153, 153, 255));
+        btnEditar.setBackground(new java.awt.Color(51, 51, 51));
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ public class VtnaGestionTelefono extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setBackground(new java.awt.Color(51, 51, 51));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +184,7 @@ public class VtnaGestionTelefono extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setBackground(new java.awt.Color(51, 51, 51));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
